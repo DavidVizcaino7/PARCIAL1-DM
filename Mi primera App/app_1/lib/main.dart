@@ -79,7 +79,7 @@ class _MainPageState extends State<MainPage> {
               title: const Text('Settings'),
               onTap: () {
                 setState(() {
-                  selectedIndex = 0; // Seleccionar página de Configuración
+                  selectedIndex = 0; 
                 });
                 Navigator.pop(context);
               },
