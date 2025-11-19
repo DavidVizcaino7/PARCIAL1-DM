@@ -21,8 +21,25 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  // Página seleccionada (Índice)
+  int selectedIndex = 0;
+
+  // Listado de las pantallas (5 pantallas)
+  final List<Widget> listPage = [
+    const Settings(title: 'Settings'),
+    const Profile(title: 'User'),
+    const Placeholder(), // Puedes reemplazar esto con una pantalla real
+    const Placeholder(), // Otra pantalla de ejemplo
+    const Placeholder(), // Otra pantalla de ejemplo
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,64 +49,113 @@ class MainPage extends StatelessWidget {
         backgroundColor: Colors.purple,
         elevation: 4,
       ),
-      body: Container(
-        color: Colors.purple.shade50,
-        child: const Center(
-          child: Text(
-            'Welcome to the Main Page!',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
+      body: listPage[selectedIndex], // Página según el índice seleccionado
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.purple,
+              ),
+              child: Text(
+                'Menu',
+                style: TextStyle(color: Colors.white, fontSize: 24),
+              ),
+            ),
+            
+            Container(
+              height: 200, 
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/imagenes/you.jpg'), 
+                  fit: BoxFit.cover, 
+                ),
+              ),
+            ),
+           
+            ListTile(
+              leading: const Icon(Icons.settings, color: Colors.purple),
+              title: const Text('Settings'),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 0; // Seleccionar página de Configuración
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.account_circle, color: Colors.purple),
+              title: const Text('Profile'),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 1; // Seleccionar página de Perfil
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.star, color: Colors.purple),
+              title: const Text('Option 3'),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 2; // Seleccionar tercera página
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.search, color: Colors.purple),
+              title: const Text('Option 4'),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 3; // Seleccionar cuarta página
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.notifications, color: Color.fromARGB(255, 18, 4, 20)),
+              title: const Text('Option 5'),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 4; // Seleccionar quinta página
+                });
+                Navigator.pop(context);
+              },
+            ),
+          ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.purple.shade200,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                icon: const Icon(Icons.settings, color: Colors.black),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => const Settings(title: 'Settings'),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.easeInOut;
-                        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                        var offsetAnimation = animation.drive(tween);
-                        return SlideTransition(position: offsetAnimation, child: child);
-                      },
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(width: 10),
-              IconButton(
-                icon: const Icon(Icons.account_circle, color: Colors.black),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) => const Profile(title: 'Profile'),
-                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                        const begin = Offset(1.0, 0.0);
-                        const end = Offset.zero;
-                        const curve = Curves.easeInOut;
-                        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-                        var offsetAnimation = animation.drive(tween);
-                        return SlideTransition(position: offsetAnimation, child: child);
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: selectedIndex, // Indice actual
+        onTap: (int index) {
+          setState(() {
+            selectedIndex = index; // Cambiar la página seleccionada
+          });
+        },
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            label: 'Option 3',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Option 4',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Option 5',
+          ),
+        ],
       ),
     );
   }
