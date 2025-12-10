@@ -49,7 +49,7 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.purple,
         elevation: 4,
       ),
-      body: listPage[selectedIndex], // Página según el índice seleccionado
+      body: listPage[selectedIndex], 
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -89,7 +89,7 @@ class _MainPageState extends State<MainPage> {
               title: const Text('Profile'),
               onTap: () {
                 setState(() {
-                  selectedIndex = 1; // Seleccionar página de Perfil
+                  selectedIndex = 1; 
                 });
                 Navigator.pop(context);
               },
@@ -99,7 +99,7 @@ class _MainPageState extends State<MainPage> {
               title: const Text('Option 3'),
               onTap: () {
                 setState(() {
-                  selectedIndex = 2; // Seleccionar tercera página
+                  selectedIndex = 2; 
                 });
                 Navigator.pop(context);
               },
