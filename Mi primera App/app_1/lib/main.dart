@@ -1,7 +1,8 @@
+// main.dart
 import 'package:flutter/material.dart';
-import 'Profile_1/profile.dart';
+import 'Profile_1/profile.dart'; 
 import 'Settings_2/settings.dart';
-
+import 'inicio/inicio.dart'; 
 void main() {
   runApp(const MyApp());
 }
@@ -29,16 +30,12 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // Página seleccionada (Índice)
   int selectedIndex = 0;
 
-  // Listado de las pantallas (5 pantallas)
   final List<Widget> listPage = [
-    const Settings(title: 'Settings'),
-    const Profile(title: 'User'),
-    const Placeholder(), // Puedes reemplazar esto con una pantalla real
-    const Placeholder(), // Otra pantalla de ejemplo
-    const Placeholder(), // Otra pantalla de ejemplo
+    const Inicio(),        
+    const Settings(title: 'Settings'),  
+    const Profile(title: 'User'),      
   ];
 
   @override
@@ -49,7 +46,7 @@ class _MainPageState extends State<MainPage> {
         backgroundColor: Colors.purple,
         elevation: 4,
       ),
-      body: listPage[selectedIndex], 
+      body: listPage[selectedIndex],
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -63,23 +60,22 @@ class _MainPageState extends State<MainPage> {
                 style: TextStyle(color: Colors.white, fontSize: 24),
               ),
             ),
-            
-            Container(
-              height: 200, 
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/imagenes/you.jpg'), 
-                  fit: BoxFit.cover, 
-                ),
-              ),
+            ListTile(
+              leading: const Icon(Icons.home, color: Colors.purple),
+              title: const Text('Inicio'),
+              onTap: () {
+                setState(() {
+                  selectedIndex = 0; // Página de inicio
+                });
+                Navigator.pop(context);
+              },
             ),
-           
             ListTile(
               leading: const Icon(Icons.settings, color: Colors.purple),
               title: const Text('Settings'),
               onTap: () {
                 setState(() {
-                  selectedIndex = 0; 
+                  selectedIndex = 1; // Página de ajustes
                 });
                 Navigator.pop(context);
               },
@@ -89,37 +85,7 @@ class _MainPageState extends State<MainPage> {
               title: const Text('Profile'),
               onTap: () {
                 setState(() {
-                  selectedIndex = 1; 
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.star, color: Colors.purple),
-              title: const Text('Option 3'),
-              onTap: () {
-                setState(() {
-                  selectedIndex = 2; 
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.search, color: Colors.purple),
-              title: const Text('Option 4'),
-              onTap: () {
-                setState(() {
-                  selectedIndex = 3; // Seleccionar cuarta página
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.notifications, color: Color.fromARGB(255, 18, 4, 20)),
-              title: const Text('Option 5'),
-              onTap: () {
-                setState(() {
-                  selectedIndex = 4; // Seleccionar quinta página
+                  selectedIndex = 2; // Página de perfil
                 });
                 Navigator.pop(context);
               },
@@ -128,7 +94,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex, // Indice actual
+        currentIndex: selectedIndex, 
         onTap: (int index) {
           setState(() {
             selectedIndex = index; // Cambiar la página seleccionada
@@ -136,24 +102,16 @@ class _MainPageState extends State<MainPage> {
         },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.star),
-            label: 'Option 3',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Option 4',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Option 5',
           ),
         ],
       ),

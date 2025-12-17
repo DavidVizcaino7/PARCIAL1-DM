@@ -25,7 +25,7 @@ class HomeView extends StatelessWidget {
             children: <Widget>[
               
               const Text(
-                '¡Bienvenido a tu tienda!👋',
+                '¡Bienvenido👋',
                 style: TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
