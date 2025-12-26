@@ -3,6 +3,7 @@ import 'package:lottie/lottie.dart'; // Importar Lottie
 import 'package:app_1/services/theme_service.dart'; 
 import 'package:app_1/Profile_1/http.view.dart'; 
 import 'package:app_1/Settings_2/catalogo.dart';  // Asegúrate de importar el catalogo.dart
+import 'package:app_1/Profile_1/episodes_view.dart'; // Importa el archivo de episodes_view.dart
 
 class Inicio extends StatelessWidget {
   const Inicio({super.key});
@@ -56,7 +57,7 @@ class Inicio extends StatelessWidget {
                   width: double.infinity,
                   height: 200,
                   child: Lottie.asset(
-                    'assets/imagenes/cat.json',  // Asegúrate de colocar 'cat.json' en la ruta correcta
+                    'assets/imagenes/cat.json',  
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -87,6 +88,21 @@ class Inicio extends StatelessWidget {
                   () {
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) => const CatalogoView()), // Navegar a CatalogoView
+                    );
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                // Nuevo botón para navegar a 'EpisodesView'
+                _buildAnimatedButton(
+                  context,
+                  'Ver Episodios',
+                  Colors.blue.shade700,
+                  Colors.white,
+                  Icons.tv,  
+                  () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => const EpisodesView()), // Navegar a EpisodesView
                     );
                   },
                 ),
